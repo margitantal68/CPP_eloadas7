@@ -16,16 +16,15 @@ struct PersonComp{
 
 void printPersons(const vector<Person>& persons){
     for(auto& pers: persons){
-        cout << pers<<endl;
+        cout << "\t" << pers<<endl;
     }
 }
 
 void printPersonSet(const set<Person, PersonComp>& persons){
     for(auto& pers: persons){
-        cout << pers<<endl;
+        cout << "\t" << pers<<endl;
     }
 }
-
 
 int main() {
     vector<Person> persons {
@@ -34,26 +33,31 @@ int main() {
             {"Nemes", "Szidonia"},
             {"Antal", "Barnabas"}
     };
+    cout<<"# Data"<<endl;
     printPersons(persons);
+
+    cout << endl <<"# Searching"<<endl;
     string toFind = "tal";
-    cout <<"Persons containing " << toFind <<": "<<endl;
+    cout <<"## Persons whose name contains " << toFind <<": "<<endl;
     for(auto& pers: persons){
         if(pers.firstName.find(toFind) != string::npos ||
                 pers.lastName.find(toFind) != string::npos
         ){
-            cout<<pers<<endl;
+            cout << "\t" << pers<<endl;
         }
     }
+    cout<<endl << "# Using set for sorting: " <<endl;
     set<string> names;
     for(auto& pers: persons){
         names.insert(pers.firstName);
         names.insert(pers.lastName);
     }
-    cout <<"Unique names: " << names.size()<<endl;
+    cout <<"## Unique names: " << names.size()<<endl;
     set<Person, PersonComp> personSet;
     for(auto& pers: persons){
         personSet.insert(pers);
     }
+    cout << "## Sorted persons: "<<endl;
     printPersonSet(personSet);
     return 0;
 }
